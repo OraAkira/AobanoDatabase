@@ -2,9 +2,9 @@ CREATE TABLE student
 (
 	_Id int(100) PRIMARY KEY IDENTITY(170100000, 1) CHECK (_Id > 0),
 	_Name varchar(255) NOT NULL,
-	_Sex char(10) DEFAULT 'ลฎ' CHECK(_Sex in('ฤะ', 'ลฎ')),
+	_Sex char(10) DEFAULT 'ๅฅณ' CHECK(_Sex in('็”ท', 'ๅฅณ')),
 	_Old int(10) DEFAULT 15,
-	_Grade char(20) DEFAULT 'าปฤ๊ผถ' CHECK(_Grade in('าปฤ๊ผถ', 'ถþฤ๊ผถ', 'ศýฤ๊ผถ', 'หฤฤ๊ผถ', 'ฮๅฤ๊ผถ', 'ม๙ฤ๊ผถ', 'ฦ฿ฤ๊ผถ', 'ฐหฤ๊ผถ', 'พลฤ๊ผถ', 'ธ฿าป', 'ธ฿ถþ', 'ธ฿ศý')),
+	_Grade char(20) DEFAULT 'ไธ€ๅนด็บง' CHECK(_Grade in('ไธ€ๅนด็บง', 'ไบๅนด็บง', 'ไธๅนด็บง', 'ๅๅนด็บง', 'ไบ”ๅนด็บง', 'ๅ…ญๅนด็บง', 'ไธๅนด็บง', 'ๅ…ซๅนด็บง', 'ไนๅนด็บง', '้ซไธ€', '้ซไบ', '้ซไธ')),
 	_Address varchar(255) DEFAULT 'NULL',
 	_Major int(10) DEFAULT 'NULL',
 	_Link char(20) DEFAULT '+86***********',
