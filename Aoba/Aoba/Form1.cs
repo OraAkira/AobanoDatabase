@@ -19,7 +19,7 @@ namespace Aoba
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string str = "server=LAPTOP-OCQJT406;database=Aoba;uid=sa;pwd=Silence_zero";
+            string str = "server=119.29.110.245;database=Aoba;uid=sa;pwd=Silence_zero_0";
             try
             {
                 testlink.ConnectionString = str;
