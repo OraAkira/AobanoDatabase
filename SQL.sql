@@ -6,7 +6,7 @@ CREATE TABLE student
 	_Old int(10) DEFAULT 15,
 	_Grade char(20) DEFAULT '一年级' CHECK(_Grade in('一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '七年级', '八年级', '九年级', '高一', '高二', '高三')),
 	_Address varchar(255) DEFAULT 'NULL',
-	_Major int(10) DEFAULT 'NULL',
+	_Major int(10) DEFAULT 0,
 	_Link char(20) DEFAULT '+86***********',
 	_StartScore int(10) DEFAULT 0,
 	_EndScore int(10) DEFAULT 0,
