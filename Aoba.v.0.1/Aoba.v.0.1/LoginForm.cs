@@ -12,11 +12,12 @@ namespace Aoba.v._0._1
         public Login()
         {
             InitializeComponent();
+            this.Show();
         }
 
         private void Link_Click(object sender, EventArgs e)
         {
-            if(exist(Account.Text, Password.Text))
+            if(exsit(Account.Text, Password.Text))
             {
                 MessageBox.Show("登陆成功！");
                 //这里需要对账号做一个验证，判断是管理员还是教师还是学生
@@ -30,7 +31,7 @@ namespace Aoba.v._0._1
                     case 4: CommonForm common = new CommonForm(); break; //表示公共临时账号，进入公共查询界面
                     default: MessageBox.Show("信息丢失，请检查数据库！"); break;
                 }
-                this.Close(); //关闭登录界面
+                this.Hide(); //关闭登录界面
             }
             else
             {
@@ -48,7 +49,6 @@ namespace Aoba.v._0._1
             if(users == string.Empty || pwd == string.Empty)
                 return false;
             Basic.mylink = new SqlConnection(Basic.connectionstring);
-            Basic.mylink.Open();
             return true;
         }
     }

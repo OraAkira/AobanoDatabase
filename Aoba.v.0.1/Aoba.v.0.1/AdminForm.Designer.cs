@@ -1,4 +1,6 @@
-﻿namespace Aoba.v._0._1
+﻿using System.Windows.Forms;
+
+namespace Aoba.v._0._1
 {
     partial class AdminForm
     {
@@ -30,29 +32,22 @@
         {
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.System = new System.Windows.Forms.ToolStripMenuItem();
+            this.切换用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Users = new System.Windows.Forms.ToolStripMenuItem();
             this.添加用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.权限管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Teachers = new System.Windows.Forms.ToolStripMenuItem();
             this.Students = new System.Windows.Forms.ToolStripMenuItem();
             this.Courses = new System.Windows.Forms.ToolStripMenuItem();
             this.Elective = new System.Windows.Forms.ToolStripMenuItem();
             this.Help = new System.Windows.Forms.ToolStripMenuItem();
             this.About = new System.Windows.Forms.ToolStripMenuItem();
-            this.切换用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.推出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Tool = new System.Windows.Forms.ToolStrip();
-            this.New = new System.Windows.Forms.ToolStripLabel();
-            this.Updata = new System.Windows.Forms.ToolStripLabel();
-            this.Qeury = new System.Windows.Forms.ToolStripLabel();
-            this.Delete = new System.Windows.Forms.ToolStripLabel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.Tool.SuspendLayout();
             this.SuspendLayout();
             // 
             // Menu
@@ -75,18 +70,24 @@
             // System
             // 
             this.System.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.退出ToolStripMenuItem,
             this.切换用户ToolStripMenuItem,
-            this.推出ToolStripMenuItem});
+            this.退出ToolStripMenuItem});
             this.System.Name = "System";
             this.System.Size = new System.Drawing.Size(44, 21);
             this.System.Text = "系统";
             // 
+            // 切换用户ToolStripMenuItem
+            // 
+            this.切换用户ToolStripMenuItem.Name = "切换用户ToolStripMenuItem";
+            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.切换用户ToolStripMenuItem.Text = "切换用户";
+            this.切换用户ToolStripMenuItem.Click += new System.EventHandler(this.切换用户ToolStripMenuItem_Click);
+            // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.退出ToolStripMenuItem.Text = "数据源";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.退出ToolStripMenuItem.Text = "退出";
             // 
             // Users
             // 
@@ -102,47 +103,40 @@
             // 添加用户ToolStripMenuItem
             // 
             this.添加用户ToolStripMenuItem.Name = "添加用户ToolStripMenuItem";
-            this.添加用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.添加用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.添加用户ToolStripMenuItem.Text = "添加用户";
             // 
             // 修改用户ToolStripMenuItem
             // 
             this.修改用户ToolStripMenuItem.Name = "修改用户ToolStripMenuItem";
-            this.修改用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改用户ToolStripMenuItem.Text = "修改用户";
             // 
             // 删除用户ToolStripMenuItem
             // 
             this.删除用户ToolStripMenuItem.Name = "删除用户ToolStripMenuItem";
-            this.删除用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.删除用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.删除用户ToolStripMenuItem.Text = "删除用户";
             // 
             // 权限管理ToolStripMenuItem
             // 
             this.权限管理ToolStripMenuItem.Name = "权限管理ToolStripMenuItem";
-            this.权限管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.权限管理ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.权限管理ToolStripMenuItem.Text = "权限管理";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 53);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(658, 285);
-            this.dataGridView1.TabIndex = 2;
             // 
             // Teachers
             // 
             this.Teachers.Name = "Teachers";
             this.Teachers.Size = new System.Drawing.Size(68, 21);
             this.Teachers.Text = "教师管理";
+            this.Teachers.Click += new System.EventHandler(this.Teachers_Click);
             // 
             // Students
             // 
             this.Students.Name = "Students";
             this.Students.Size = new System.Drawing.Size(68, 21);
             this.Students.Text = "学生管理";
+            this.Students.Click += new System.EventHandler(this.Students_Click);
             // 
             // Courses
             // 
@@ -168,61 +162,18 @@
             this.About.Size = new System.Drawing.Size(44, 21);
             this.About.Text = "关于";
             // 
-            // 切换用户ToolStripMenuItem
+            // dataGridView1
             // 
-            this.切换用户ToolStripMenuItem.Name = "切换用户ToolStripMenuItem";
-            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.切换用户ToolStripMenuItem.Text = "切换用户";
-            // 
-            // 推出ToolStripMenuItem
-            // 
-            this.推出ToolStripMenuItem.Name = "推出ToolStripMenuItem";
-            this.推出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.推出ToolStripMenuItem.Text = "退出";
-            // 
-            // Tool
-            // 
-            this.Tool.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.New,
-            this.Updata,
-            this.Qeury,
-            this.Delete});
-            this.Tool.Location = new System.Drawing.Point(0, 25);
-            this.Tool.Name = "Tool";
-            this.Tool.Size = new System.Drawing.Size(682, 25);
-            this.Tool.TabIndex = 3;
-            this.Tool.Text = "toolStrip1";
-            // 
-            // New
-            // 
-            this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(32, 22);
-            this.New.Text = "新建";
-            // 
-            // Updata
-            // 
-            this.Updata.Name = "Updata";
-            this.Updata.Size = new System.Drawing.Size(32, 22);
-            this.Updata.Text = "修改";
-            // 
-            // Qeury
-            // 
-            this.Qeury.Name = "Qeury";
-            this.Qeury.Size = new System.Drawing.Size(32, 22);
-            this.Qeury.Text = "查询";
-            // 
-            // Delete
-            // 
-            this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(32, 22);
-            this.Delete.Text = "删除";
+            this.dataGridView1.Dock = DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(682, 325);
+            this.dataGridView1.TabIndex = 2;
             // 
             // AdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 350);
-            this.Controls.Add(this.Tool);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Menu);
             this.MainMenuStrip = this.Menu;
@@ -231,8 +182,6 @@
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.Tool.ResumeLayout(false);
-            this.Tool.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,7 +189,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip Menu;
+        private new System.Windows.Forms.MenuStrip Menu;
         private System.Windows.Forms.ToolStripMenuItem System;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Users;
@@ -249,7 +198,6 @@
         private System.Windows.Forms.ToolStripMenuItem 删除用户ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 权限管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 切换用户ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 推出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Teachers;
         private System.Windows.Forms.ToolStripMenuItem Students;
         private System.Windows.Forms.ToolStripMenuItem Courses;
@@ -257,10 +205,5 @@
         private System.Windows.Forms.ToolStripMenuItem Help;
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ToolStrip Tool;
-        private System.Windows.Forms.ToolStripLabel New;
-        private System.Windows.Forms.ToolStripLabel Updata;
-        private System.Windows.Forms.ToolStripLabel Qeury;
-        private System.Windows.Forms.ToolStripLabel Delete;
     }
 }
