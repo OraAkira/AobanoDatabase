@@ -50,5 +50,10 @@ namespace Aoba.v._0._1
             dataGridView1.DataMember = "student";
             Basic.mylink.Close();
         }
+
+        private void 增加教师ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

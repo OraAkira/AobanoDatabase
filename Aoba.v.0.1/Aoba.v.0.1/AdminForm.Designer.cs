@@ -40,6 +40,10 @@ namespace Aoba.v._0._1
             this.删除用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.权限管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Teachers = new System.Windows.Forms.ToolStripMenuItem();
+            this.增加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Students = new System.Windows.Forms.ToolStripMenuItem();
             this.Courses = new System.Windows.Forms.ToolStripMenuItem();
             this.Elective = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,10 +130,40 @@ namespace Aoba.v._0._1
             // 
             // Teachers
             // 
+            this.Teachers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.增加ToolStripMenuItem,
+            this.修改ToolStripMenuItem,
+            this.查询ToolStripMenuItem,
+            this.删除ToolStripMenuItem});
             this.Teachers.Name = "Teachers";
             this.Teachers.Size = new System.Drawing.Size(68, 21);
             this.Teachers.Text = "教师管理";
             this.Teachers.Click += new System.EventHandler(this.Teachers_Click);
+            // 
+            // 增加ToolStripMenuItem
+            // 
+            this.增加ToolStripMenuItem.Name = "增加ToolStripMenuItem";
+            this.增加ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.增加ToolStripMenuItem.Text = "增加";
+            this.增加ToolStripMenuItem.Click += new System.EventHandler(this.增加教师ToolStripMenuItem_Click);
+            // 
+            // 修改ToolStripMenuItem
+            // 
+            this.修改ToolStripMenuItem.Name = "修改ToolStripMenuItem";
+            this.修改ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改ToolStripMenuItem.Text = "修改";
+            // 
+            // 查询ToolStripMenuItem
+            // 
+            this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
+            this.查询ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.查询ToolStripMenuItem.Text = "查询";
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.删除ToolStripMenuItem.Text = "删除";
             // 
             // Students
             // 
@@ -205,5 +239,9 @@ namespace Aoba.v._0._1
         private System.Windows.Forms.ToolStripMenuItem Help;
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private ToolStripMenuItem 增加ToolStripMenuItem;
+        private ToolStripMenuItem 修改ToolStripMenuItem;
+        private ToolStripMenuItem 查询ToolStripMenuItem;
+        private ToolStripMenuItem 删除ToolStripMenuItem;
     }
 }
