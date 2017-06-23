@@ -83,15 +83,16 @@ namespace Aoba.v._0._1
             // 切换用户ToolStripMenuItem
             // 
             this.切换用户ToolStripMenuItem.Name = "切换用户ToolStripMenuItem";
-            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.切换用户ToolStripMenuItem.Text = "切换用户";
             this.切换用户ToolStripMenuItem.Click += new System.EventHandler(this.切换用户ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
             // Users
             // 
@@ -107,25 +108,25 @@ namespace Aoba.v._0._1
             // 添加用户ToolStripMenuItem
             // 
             this.添加用户ToolStripMenuItem.Name = "添加用户ToolStripMenuItem";
-            this.添加用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.添加用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.添加用户ToolStripMenuItem.Text = "添加用户";
             // 
             // 修改用户ToolStripMenuItem
             // 
             this.修改用户ToolStripMenuItem.Name = "修改用户ToolStripMenuItem";
-            this.修改用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.修改用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.修改用户ToolStripMenuItem.Text = "修改用户";
             // 
             // 删除用户ToolStripMenuItem
             // 
             this.删除用户ToolStripMenuItem.Name = "删除用户ToolStripMenuItem";
-            this.删除用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.删除用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.删除用户ToolStripMenuItem.Text = "删除用户";
             // 
             // 权限管理ToolStripMenuItem
             // 
             this.权限管理ToolStripMenuItem.Name = "权限管理ToolStripMenuItem";
-            this.权限管理ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.权限管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.权限管理ToolStripMenuItem.Text = "权限管理";
             // 
             // Teachers
@@ -152,6 +153,7 @@ namespace Aoba.v._0._1
             this.修改ToolStripMenuItem.Name = "修改ToolStripMenuItem";
             this.修改ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.修改ToolStripMenuItem.Text = "修改";
+            this.修改ToolStripMenuItem.Click += new System.EventHandler(this.修改ToolStripMenuItem_Click);
             // 
             // 查询ToolStripMenuItem
             // 
@@ -164,6 +166,7 @@ namespace Aoba.v._0._1
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
             this.删除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // Students
             // 
@@ -198,7 +201,7 @@ namespace Aoba.v._0._1
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Dock = DockStyle.Fill;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 25);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;

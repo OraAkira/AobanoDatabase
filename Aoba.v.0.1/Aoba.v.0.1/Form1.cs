@@ -3,25 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Aoba.v._0._1
 {
-    public partial class TeacherForm : Form
+    public partial class Form1 : Aoba.v._0._1.CommonForm
     {
-        public TeacherForm()
+        public Form1()
         {
             InitializeComponent();
-            this.Show();
-        }
-
-        public TeacherForm(int id)
-        {
-            InitializeComponent();
-            this.Show();
         }
     }
 }

@@ -53,7 +53,44 @@ namespace Aoba.v._0._1
 
         private void 增加教师ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TeacherForm teacher = new TeacherForm();
+        }
 
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                TeacherForm teacher = new TeacherForm(id);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("未选中任何有效行");
+            }
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                string sql = "DELETE FROM teacher WHILE _id = " + id.ToString();
+                Basic.mylink.Open();
+                SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
+                if(1 == cmd.ExecuteNonQuery())
+                {
+                    MessageBox.Show("删除成功！");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("未选中任何有效行");
+            }
         }
     }
 }
