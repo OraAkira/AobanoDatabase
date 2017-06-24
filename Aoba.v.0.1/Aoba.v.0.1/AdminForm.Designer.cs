@@ -30,28 +30,27 @@ namespace Aoba.v._0._1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.System = new System.Windows.Forms.ToolStripMenuItem();
             this.切换用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Users = new System.Windows.Forms.ToolStripMenuItem();
-            this.添加用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.修改用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.权限管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Teachers = new System.Windows.Forms.ToolStripMenuItem();
-            this.增加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Students = new System.Windows.Forms.ToolStripMenuItem();
             this.Courses = new System.Windows.Forms.ToolStripMenuItem();
             this.Elective = new System.Windows.Forms.ToolStripMenuItem();
             this.Help = new System.Windows.Forms.ToolStripMenuItem();
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.新增ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.查询ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.修改ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Menu
@@ -96,77 +95,16 @@ namespace Aoba.v._0._1
             // 
             // Users
             // 
-            this.Users.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.添加用户ToolStripMenuItem,
-            this.修改用户ToolStripMenuItem,
-            this.删除用户ToolStripMenuItem,
-            this.权限管理ToolStripMenuItem});
             this.Users.Name = "Users";
             this.Users.Size = new System.Drawing.Size(68, 21);
             this.Users.Text = "用户管理";
             // 
-            // 添加用户ToolStripMenuItem
-            // 
-            this.添加用户ToolStripMenuItem.Name = "添加用户ToolStripMenuItem";
-            this.添加用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.添加用户ToolStripMenuItem.Text = "添加用户";
-            // 
-            // 修改用户ToolStripMenuItem
-            // 
-            this.修改用户ToolStripMenuItem.Name = "修改用户ToolStripMenuItem";
-            this.修改用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.修改用户ToolStripMenuItem.Text = "修改用户";
-            // 
-            // 删除用户ToolStripMenuItem
-            // 
-            this.删除用户ToolStripMenuItem.Name = "删除用户ToolStripMenuItem";
-            this.删除用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.删除用户ToolStripMenuItem.Text = "删除用户";
-            // 
-            // 权限管理ToolStripMenuItem
-            // 
-            this.权限管理ToolStripMenuItem.Name = "权限管理ToolStripMenuItem";
-            this.权限管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.权限管理ToolStripMenuItem.Text = "权限管理";
-            // 
             // Teachers
             // 
-            this.Teachers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.增加ToolStripMenuItem,
-            this.修改ToolStripMenuItem,
-            this.查询ToolStripMenuItem,
-            this.删除ToolStripMenuItem});
             this.Teachers.Name = "Teachers";
             this.Teachers.Size = new System.Drawing.Size(68, 21);
             this.Teachers.Text = "教师管理";
             this.Teachers.Click += new System.EventHandler(this.Teachers_Click);
-            // 
-            // 增加ToolStripMenuItem
-            // 
-            this.增加ToolStripMenuItem.Name = "增加ToolStripMenuItem";
-            this.增加ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.增加ToolStripMenuItem.Text = "增加";
-            this.增加ToolStripMenuItem.Click += new System.EventHandler(this.增加教师ToolStripMenuItem_Click);
-            // 
-            // 修改ToolStripMenuItem
-            // 
-            this.修改ToolStripMenuItem.Name = "修改ToolStripMenuItem";
-            this.修改ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.修改ToolStripMenuItem.Text = "修改";
-            this.修改ToolStripMenuItem.Click += new System.EventHandler(this.修改ToolStripMenuItem_Click);
-            // 
-            // 查询ToolStripMenuItem
-            // 
-            this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
-            this.查询ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.查询ToolStripMenuItem.Text = "查询";
-            // 
-            // 删除ToolStripMenuItem
-            // 
-            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.删除ToolStripMenuItem.Text = "删除";
-            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // Students
             // 
@@ -201,12 +139,51 @@ namespace Aoba.v._0._1
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.dataGridView1.Dock = DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 25);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(682, 325);
             this.dataGridView1.TabIndex = 2;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.新增ToolStripMenuItem1,
+            this.查询ToolStripMenuItem2,
+            this.修改ToolStripMenuItem2,
+            this.删除ToolStripMenuItem2});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 92);
+            // 
+            // 新增ToolStripMenuItem1
+            // 
+            this.新增ToolStripMenuItem1.Name = "新增ToolStripMenuItem1";
+            this.新增ToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.新增ToolStripMenuItem1.Text = "新增";
+            this.新增ToolStripMenuItem1.Click += new System.EventHandler(this.新增ToolStripMenuItem1_Click);
+            // 
+            // 查询ToolStripMenuItem2
+            // 
+            this.查询ToolStripMenuItem2.Name = "查询ToolStripMenuItem2";
+            this.查询ToolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
+            this.查询ToolStripMenuItem2.Text = "查询";
+            this.查询ToolStripMenuItem2.Click += new System.EventHandler(this.查询ToolStripMenuItem2_Click);
+            // 
+            // 修改ToolStripMenuItem2
+            // 
+            this.修改ToolStripMenuItem2.Name = "修改ToolStripMenuItem2";
+            this.修改ToolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
+            this.修改ToolStripMenuItem2.Text = "修改";
+            this.修改ToolStripMenuItem2.Click += new System.EventHandler(this.修改ToolStripMenuItem2_Click);
+            // 
+            // 删除ToolStripMenuItem2
+            // 
+            this.删除ToolStripMenuItem2.Name = "删除ToolStripMenuItem2";
+            this.删除ToolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
+            this.删除ToolStripMenuItem2.Text = "删除";
+            this.删除ToolStripMenuItem2.Click += new System.EventHandler(this.删除ToolStripMenuItem2_Click);
             // 
             // AdminForm
             // 
@@ -219,6 +196,7 @@ namespace Aoba.v._0._1
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,10 +208,6 @@ namespace Aoba.v._0._1
         private System.Windows.Forms.ToolStripMenuItem System;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Users;
-        private System.Windows.Forms.ToolStripMenuItem 添加用户ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 修改用户ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 删除用户ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 权限管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 切换用户ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Teachers;
         private System.Windows.Forms.ToolStripMenuItem Students;
@@ -242,9 +216,10 @@ namespace Aoba.v._0._1
         private System.Windows.Forms.ToolStripMenuItem Help;
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private ToolStripMenuItem 增加ToolStripMenuItem;
-        private ToolStripMenuItem 修改ToolStripMenuItem;
-        private ToolStripMenuItem 查询ToolStripMenuItem;
-        private ToolStripMenuItem 删除ToolStripMenuItem;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem 新增ToolStripMenuItem1;
+        private ToolStripMenuItem 查询ToolStripMenuItem2;
+        private ToolStripMenuItem 修改ToolStripMenuItem2;
+        private ToolStripMenuItem 删除ToolStripMenuItem2;
     }
 }

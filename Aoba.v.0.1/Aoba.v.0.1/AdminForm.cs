@@ -50,46 +50,87 @@ namespace Aoba.v._0._1
             dataGridView1.DataMember = "student";
             Basic.mylink.Close();
         }
-
-        private void 增加教师ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TeacherForm teacher = new TeacherForm();
-        }
-
+        
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 新增ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            TeacherForm teacher = new TeacherForm();
+            teacher.ShowDialog();
+        }
+
+        private void 查询ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            QueryFrom query = new QueryFrom(3);
+            query.ShowDialog();
+            Basic.mylink.Open();
             try
             {
-                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
-                TeacherForm teacher = new TeacherForm(id);
+                SqlCommand cmd = new SqlCommand(query.sql, Basic.mylink);
+                SqlDataReader datareader = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(datareader);
+                dataGridView1.DataSource = dt;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("未选中任何有效行");
+                MessageBox.Show("无该记录，请确认查询条件没有错误");
+                Console.WriteLine("错误代码：{0}", ex);
+            }
+            finally
+            {
+                Basic.mylink.Close();
             }
         }
 
-        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 修改ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             try
             {
-                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
-                string sql = "DELETE FROM teacher WHILE _id = " + id.ToString();
+                string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
+                TeacherForm teacher = new TeacherForm(id);
+                teacher.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("未选中任何有效行");
+                Console.WriteLine("错误代码：{0}", ex);
+            }
+            finally
+            {
+                
+            }
+        }
+
+        private void 删除ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
+                string sql = "DELETE FROM teacher WHERE _id=" + id;
                 Basic.mylink.Open();
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
-                if(1 == cmd.ExecuteNonQuery())
+                int count = cmd.ExecuteNonQuery();
+                if (count == 1)
                 {
                     MessageBox.Show("删除成功！");
+                }
+                else
+                {
+                    MessageBox.Show("删除失败...");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("未选中任何有效行");
+                Console.WriteLine("错误代码：{0}", ex);
+            }
+            finally
+            {
+                Basic.mylink.Close();
             }
         }
     }
