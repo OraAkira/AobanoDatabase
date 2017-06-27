@@ -13,6 +13,9 @@ namespace Aoba.v._0._1
 {
     public partial class AdminForm : Form
     {
+        private Basic.UserType usertype;
+        private string tablename;
+
         public AdminForm()
         {
             InitializeComponent();
@@ -36,6 +39,7 @@ namespace Aoba.v._0._1
             dataGridView1.DataSource = ds;
             dataGridView1.DataMember = "teacher";
             Basic.mylink.Close();
+            usertype = Basic.UserType.teacher;
         }
 
         private void Students_Click(object sender, EventArgs e)
@@ -49,6 +53,7 @@ namespace Aoba.v._0._1
             dataGridView1.DataSource = ds;
             dataGridView1.DataMember = "student";
             Basic.mylink.Close();
+            usertype = Basic.UserType.student;
         }
         
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -58,13 +63,20 @@ namespace Aoba.v._0._1
 
         private void 新增ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            TeacherForm teacher = new TeacherForm();
-            teacher.ShowDialog();
+            switch(usertype)
+            {
+                case Basic.UserType.user: Form user = new Form(); user.ShowDialog(); break;
+                case Basic.UserType.teacher: TeacherForm teacher = new TeacherForm(); teacher.ShowDialog(); break;
+                case Basic.UserType.student: StudentForm student = new StudentForm(); student.ShowDialog(); break;
+                case Basic.UserType.course: Form course = new Form(); course.ShowDialog(); break;
+                case Basic.UserType.elective: Form elective = new Form(); elective.ShowDialog(); break;
+            }
+            
         }
 
         private void 查询ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            QueryFrom query = new QueryFrom(3);
+            QueryFrom query = new QueryFrom(usertype);
             query.ShowDialog();
             Basic.mylink.Open();
             try
@@ -91,8 +103,14 @@ namespace Aoba.v._0._1
             try
             {
                 string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
-                TeacherForm teacher = new TeacherForm(id);
-                teacher.ShowDialog();
+                switch (usertype)
+                {
+                    case Basic.UserType.user: Form user = new Form(); user.ShowDialog(); break;
+                    case Basic.UserType.teacher: TeacherForm teacher = new TeacherForm(id); teacher.ShowDialog(); break;
+                    case Basic.UserType.student: StudentForm student = new StudentForm(id); student.ShowDialog(); break;
+                    case Basic.UserType.course: Form course = new Form(); course.ShowDialog(); break;
+                    case Basic.UserType.elective: Form elective = new Form(); elective.ShowDialog(); break;
+                }
             }
             catch (Exception ex)
             {

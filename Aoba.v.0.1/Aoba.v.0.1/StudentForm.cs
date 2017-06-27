@@ -17,5 +17,11 @@ namespace Aoba.v._0._1
             InitializeComponent();
             this.Show();
         }
+
+        public StudentForm(string id)
+        {
+            InitializeComponent();
+            this.Show();
+        }
     }
 }

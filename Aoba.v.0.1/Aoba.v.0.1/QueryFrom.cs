@@ -15,15 +15,16 @@ namespace Aoba.v._0._1
     {
         private string tablename;
         public string sql;
-        public QueryFrom(int index)
+        public QueryFrom(Basic.UserType usertype)
         {
             InitializeComponent();
-            switch (index)
+            switch (usertype)
             {
-                case 1: tablename = "user"; break;
-                case 2: tablename = "student"; break;
-                case 3: tablename = "teacher"; break;
-                case 4: tablename = "course"; break;
+                case Basic.UserType.user: tablename = "user"; break;
+                case Basic.UserType.student: tablename = "student"; break;
+                case Basic.UserType.teacher: tablename = "teacher"; break;
+                case Basic.UserType.course: tablename = "course"; break;
+                case Basic.UserType.elective: tablename = "elective"; break;
                 default: break;
             }
             comboBox1.SelectedIndex = 0;
