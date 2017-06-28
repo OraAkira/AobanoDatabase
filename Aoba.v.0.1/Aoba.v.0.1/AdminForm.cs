@@ -40,6 +40,7 @@ namespace Aoba.v._0._1
             dataGridView1.DataMember = "teacher";
             Basic.mylink.Close();
             usertype = Basic.UserType.teacher;
+            tablename = "teacher";
         }
 
         private void Students_Click(object sender, EventArgs e)
@@ -54,6 +55,7 @@ namespace Aoba.v._0._1
             dataGridView1.DataMember = "student";
             Basic.mylink.Close();
             usertype = Basic.UserType.student;
+            tablename = "student";
         }
         
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,9 +130,10 @@ namespace Aoba.v._0._1
             try
             {
                 string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
-                string sql = "DELETE FROM teacher WHERE _id=" + id;
+                string sql = "DELETE FROM " + tablename + " WHERE _id=" + id;
                 Basic.mylink.Open();
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
+                MessageBox.Show(sql);
                 int count = cmd.ExecuteNonQuery();
                 if (count == 1)
                 {

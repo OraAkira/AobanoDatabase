@@ -19,6 +19,7 @@ namespace Aoba.v._0._1
         public StudentForm()
         {
             InitializeComponent();
+            SetDefaultText();
         }
 
         public StudentForm(string _id)
@@ -66,6 +67,7 @@ namespace Aoba.v._0._1
             {
                 Basic.mylink.Close();
             }
+            cmd.Dispose();
             sql = "SELECT * FROM elective WHERE _StdId=" + _id;
             cmd = new SqlCommand(sql, Basic.mylink);
             try
@@ -91,43 +93,43 @@ namespace Aoba.v._0._1
         private void button5_Click(object sender, EventArgs e)
         {
             string sql;
-            if(modify)
+            if (modify)
             {
                 sql = "UPDATE teacher SET "
                     + " _Name='" + textBox1.Text + "'"
                     + ", _Sex='" + textBox2.Text + "'"
-                    + ", _Birth='" + textBox2.Text + "'"
-                    + ", _Id='" + textBox2.Text + "'"
-                    + ", _Nation='" + textBox2.Text + "'"
-                    + ", _Payment='" + textBox2.Text + "'"
-                    + ", _Link='" + textBox2.Text + "'"
-                    + ", _Teacher='" + textBox2.Text + "'"
-                    + ", _Grade='" + textBox2.Text + "'"
-                    + ", _Address='" + textBox2.Text + "'"
-                    + ", _Organization='" + textBox2.Text + "'"
-                    + ", _Campus='" + textBox2.Text + "'"
-                    + ", _Absenteeism='" + textBox2.Text + "'"
-                    + ", _Late='" + textBox2.Text + "'"
-                    + ", _Homework='" + textBox2.Text + "'"
-                    + ", _Discipline='" + textBox2.Text + "'"
-                    + ", _ClassPerform='" + textBox2.Text + "'"
-                    + ", _StudyPerform='" + textBox2.Text + "'"
-                    + ", _Attitude='" + textBox2.Text + "'"
-                    + ", _Overall='" + textBox2.Text + "'\n"
+                    + ", _Birth='" + textBox3.Text + "'"
+                    + ", _Id=" + textBox4.Text
+                    + ", _Nation='" + textBox5.Text + "'"
+                    + ", _Payment='" + textBox6.Text + "'"
+                    + ", _Link='" + textBox7.Text + "'"
+                    + ", _Teacher=" + textBox8.Text + ""
+                    + ", _Grade='" + textBox9.Text + "'"
+                    + ", _Address='" + textBox10.Text + "'"
+                    + ", _Organization='" + textBox11.Text + "'"
+                    + ", _Campus='" + textBox12.Text + "'"
+                    + ", _Absenteeism=" + textBox13.Text
+                    + ", _Late=" + textBox14.Text
+                    + ", _Homework=" + textBox15.Text
+                    + ", _Discipline=" + textBox16.Text
+                    + ", _ClassPerform='" + textBox17.Text + "'"
+                    + ", _StudyPerform='" + textBox18.Text + "'"
+                    + ", _Attitude='" + textBox19.Text + "'"
+                    + ", _Overall='" + textBox20.Text + "'\n"
                     + " WEHER _Id = " + id;
             }
             else
             {
-                sql = "INSERT INTO student (_Name, _Sex, _Birth, _Id, _Nation, " +
+                sql = "INSERT INTO student (_Name, _Sex, _Birth, _Nation, " +
                     "_Payment, _Link, _Teacher, _Grade, _Address, _Organization, " +
-                    "_Campus, _Absenteeism, _Late, _Homework, _Discipline, " +
-                    "_ClassPerform, _StudyPerform, _Attitude, _Overall,) VALUES ('" +
+                    "_Campus,  _Absenteeism, _Late, _Homework, _Discipline, " +
+                    "_ClassPerform, _StudyPerform, _Attitude, _Overall) VALUES ('" +
                     textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" +
-                    textBox4.Text + "', '" + textBox5.Text + "', '" + textBox6.Text + "', '" +
-                    textBox7.Text + "', '" + textBox8.Text + "', '" + textBox9.Text + "', '" +
-                    textBox10.Text + "', '" + textBox11.Text + "', '" + textBox12.Text + "', '" +
-                    textBox13.Text + "', '" + textBox14.Text + "', '" + textBox15.Text + "', '" +
-                    textBox16.Text + "', '" + textBox17.Text + "', '" + textBox18.Text + "', '" +
+                    textBox5.Text + "', '" + textBox6.Text + "', '" +
+                    textBox7.Text + "', " + textBox8.Text + ", '" + textBox9.Text + "', '" +
+                    textBox10.Text + "', '" + textBox11.Text + "', '" + textBox12.Text + "', " +
+                    textBox13.Text + ", " + textBox14.Text + ", " + textBox15.Text + ", " + textBox16.Text + ", '" +
+                    textBox17.Text + "', '" + textBox18.Text + "', '" +
                     textBox19.Text + "', '" + textBox20.Text + "')";
             }
             Basic.mylink.Open();
@@ -149,5 +151,53 @@ namespace Aoba.v._0._1
         {
             Application.Exit();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            this.Close();
+        }
+
+        private void SetDefaultText()
+        {
+            textBox2.Text = "男";
+            textBox2.ForeColor = Color.Gray;
+            textBox3.Text = "2000-01-01";
+            textBox3.ForeColor = Color.Gray;
+            textBox4.ReadOnly = false;
+            textBox5.Text = "汉";
+            textBox5.ForeColor = Color.Gray;
+            textBox6.Text = "未缴费";
+            textBox6.ForeColor = Color.Gray;
+            textBox7.Text = "+86***********";
+            textBox7.ForeColor = Color.Gray;
+            textBox8.Text = "1701000";
+            textBox8.ForeColor = Color.Gray;
+            textBox9.Text = "高一";
+            textBox9.ForeColor = Color.Gray;
+            textBox10.Text = "四川成都";
+            textBox10.ForeColor = Color.Gray;
+            textBox11.Text = "比丽弗教育机构";
+            textBox11.ForeColor = Color.Gray;
+            textBox12.Text = "普格";
+            textBox12.ForeColor = Color.Gray;
+            textBox13.Text = "0";
+            textBox14.ForeColor = Color.Gray;
+            textBox14.Text = "0";
+            textBox15.ForeColor = Color.Gray;
+            textBox15.Text = "0";
+            textBox16.ForeColor = Color.Gray;
+            textBox16.Text = "0";
+            textBox17.ForeColor = Color.Gray;
+            textBox17.Text = "优";
+            textBox18.ForeColor = Color.Gray;
+            textBox18.Text = "优";
+            textBox19.ForeColor = Color.Gray;
+            textBox19.Text = "优";
+            textBox20.ForeColor = Color.Gray;
+            textBox20.Text = "无说明";
+            textBox1.ForeColor = Color.Gray;
+        }
+
     }
 }
