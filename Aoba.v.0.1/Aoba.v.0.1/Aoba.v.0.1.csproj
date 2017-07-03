@@ -53,11 +53,29 @@
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Basic.cs" />
+    <Compile Include="ClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassForm.Designer.cs">
+      <DependentUpon>ClassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommonForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CommonForm.Designer.cs">
       <DependentUpon>CommonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CourseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CourseForm.Designer.cs">
+      <DependentUpon>CourseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="electiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="electiveForm.Designer.cs">
+      <DependentUpon>electiveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="QueryFrom.cs">
       <SubType>Form</SubType>
@@ -87,6 +105,15 @@
     </Compile>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClassForm.resx">
+      <DependentUpon>ClassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CourseForm.resx">
+      <DependentUpon>CourseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="electiveForm.resx">
+      <DependentUpon>electiveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="QueryFrom.resx">
       <DependentUpon>QueryFrom.cs</DependentUpon>

@@ -82,14 +82,14 @@ namespace Aoba.v._0._1
             // 切换用户ToolStripMenuItem
             // 
             this.切换用户ToolStripMenuItem.Name = "切换用户ToolStripMenuItem";
-            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.切换用户ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.切换用户ToolStripMenuItem.Text = "切换用户";
             this.切换用户ToolStripMenuItem.Click += new System.EventHandler(this.切换用户ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -118,12 +118,14 @@ namespace Aoba.v._0._1
             this.Courses.Name = "Courses";
             this.Courses.Size = new System.Drawing.Size(68, 21);
             this.Courses.Text = "课程管理";
+            this.Courses.Click += new System.EventHandler(this.Courses_Click);
             // 
             // Elective
             // 
             this.Elective.Name = "Elective";
             this.Elective.Size = new System.Drawing.Size(68, 21);
             this.Elective.Text = "学生选课";
+            this.Elective.Click += new System.EventHandler(this.Elective_Click);
             // 
             // Help
             // 

@@ -19,7 +19,6 @@ namespace Aoba.v._0._1
         public AdminForm()
         {
             InitializeComponent();
-            this.Show();
         }
 
         private void 切换用户ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,39 +27,72 @@ namespace Aoba.v._0._1
             this.Close();
         }
 
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void Teachers_Click(object sender, EventArgs e)
         {
+            contextMenuStrip1.Items[1].Enabled = true;
             string SQL = "SELECT * FROM teacher";
-            Basic.mylink.Open();
             SqlCommand cmd = new SqlCommand(SQL, Basic.mylink);
+            Basic.mylink.Open();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             sda.Fill(ds, "teacher");
             dataGridView1.DataSource = ds;
             dataGridView1.DataMember = "teacher";
-            Basic.mylink.Close();
             usertype = Basic.UserType.teacher;
             tablename = "teacher";
+            Basic.mylink.Close();
         }
 
         private void Students_Click(object sender, EventArgs e)
         {
+            contextMenuStrip1.Items[1].Enabled = true;
             string SQL = "SELECT * FROM student";
-            Basic.mylink.Open();
             SqlCommand cmd = new SqlCommand(SQL, Basic.mylink);
+            Basic.mylink.Open();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             sda.Fill(ds, "student");
             dataGridView1.DataSource = ds;
             dataGridView1.DataMember = "student";
-            Basic.mylink.Close();
             usertype = Basic.UserType.student;
             tablename = "student";
+            Basic.mylink.Close();
         }
-        
-        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void Courses_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            contextMenuStrip1.Items[1].Enabled = false;
+            string SQL = "SELECT course._Id, course._Name, teacher._Name, course._Time, course._Place FROM course, teacher WHERE course._Teacher = teacher._Id";
+            SqlCommand cmd = new SqlCommand(SQL, Basic.mylink);
+            Basic.mylink.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds, "course");
+            dataGridView1.DataSource = ds;
+            dataGridView1.DataMember = "course";
+            usertype = Basic.UserType.course;
+            tablename = "course";
+            Basic.mylink.Close();
+        }
+
+        private void Elective_Click(object sender, EventArgs e)
+        {
+            string SQL = "SELECT * FROM elective";
+            SqlCommand cmd = new SqlCommand(SQL, Basic.mylink);
+            Basic.mylink.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds, "course");
+            dataGridView1.DataSource = ds;
+            dataGridView1.DataMember = "course";
+            usertype = Basic.UserType.elective;
+            tablename = "course";
+            Basic.mylink.Close();
         }
 
         private void 新增ToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -70,8 +102,8 @@ namespace Aoba.v._0._1
                 case Basic.UserType.user: Form user = new Form(); user.ShowDialog(); break;
                 case Basic.UserType.teacher: TeacherForm teacher = new TeacherForm(); teacher.ShowDialog(); break;
                 case Basic.UserType.student: StudentForm student = new StudentForm(); student.ShowDialog(); break;
-                case Basic.UserType.course: Form course = new Form(); course.ShowDialog(); break;
-                case Basic.UserType.elective: Form elective = new Form(); elective.ShowDialog(); break;
+                case Basic.UserType.course: CourseForm course = new CourseForm(); course.ShowDialog(); break;
+                case Basic.UserType.elective: electiveForm elective = new electiveForm(); elective.ShowDialog(); break;
             }
             
         }
@@ -80,10 +112,10 @@ namespace Aoba.v._0._1
         {
             QueryFrom query = new QueryFrom(usertype);
             query.ShowDialog();
-            Basic.mylink.Open();
             try
             {
                 SqlCommand cmd = new SqlCommand(query.sql, Basic.mylink);
+                Basic.mylink.Open();
                 SqlDataReader datareader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(datareader);
@@ -104,24 +136,19 @@ namespace Aoba.v._0._1
         {
             try
             {
-                string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
+                string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
                 switch (usertype)
                 {
                     case Basic.UserType.user: Form user = new Form(); user.ShowDialog(); break;
                     case Basic.UserType.teacher: TeacherForm teacher = new TeacherForm(id); teacher.ShowDialog(); break;
                     case Basic.UserType.student: StudentForm student = new StudentForm(id); student.ShowDialog(); break;
-                    case Basic.UserType.course: Form course = new Form(); course.ShowDialog(); break;
-                    case Basic.UserType.elective: Form elective = new Form(); elective.ShowDialog(); break;
+                    case Basic.UserType.course: CourseForm course = new CourseForm(id); course.ShowDialog(); break;
+                    case Basic.UserType.elective: electiveForm elective = new electiveForm(id); elective.ShowDialog(); break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("未选中任何有效行");
-                Console.WriteLine("错误代码：{0}", ex);
-            }
-            finally
-            {
-                
+                MessageBox.Show("错误代码：{0}" + ex.ToString());
             }
         }
 
@@ -131,8 +158,8 @@ namespace Aoba.v._0._1
             {
                 string id = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["_Id"].Value.ToString();
                 string sql = "DELETE FROM " + tablename + " WHERE _id=" + id;
-                Basic.mylink.Open();
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
+                Basic.mylink.Open();
                 MessageBox.Show(sql);
                 int count = cmd.ExecuteNonQuery();
                 if (count == 1)
@@ -146,13 +173,13 @@ namespace Aoba.v._0._1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("未选中任何有效行");
-                Console.WriteLine("错误代码：{0}", ex);
+                MessageBox.Show("错误代码：{0}" + ex.ToString());
             }
             finally
             {
                 Basic.mylink.Close();
             }
         }
+
     }
 }

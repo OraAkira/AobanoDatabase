@@ -25,10 +25,10 @@ namespace Aoba.v._0._1
                 //调用另外的窗口，关闭此窗口
                 switch (get_Type(Account.Text))
                 {
-                    case 1: AdminForm admin = new AdminForm(); break; //表示管理员，进入管理员界面
-                    case 2: TeacherForm teacher = new TeacherForm(); break; //表示教师，进入教师查询界面
-                    case 3: StudentForm student = new StudentForm(); break; //表示学生，进入学生个人信息界面
-                    case 4: CommonForm common = new CommonForm(); break; //表示公共临时账号，进入公共查询界面
+                    case 1: AdminForm admin = new AdminForm(); admin.Show(); break; //表示管理员，进入管理员界面
+                    case 2: TeacherForm teacher = new TeacherForm(); teacher.Show(); break; //表示教师，进入教师查询界面
+                    case 3: StudentForm student = new StudentForm(); student.Show(); break; //表示学生，进入学生个人信息界面
+                    case 4: CommonForm common = new CommonForm(); common.Show(); break; //表示公共临时账号，进入公共查询界面
                     default: MessageBox.Show("信息丢失，请检查数据库！"); break;
                 }
                 this.Hide(); //关闭登录界面

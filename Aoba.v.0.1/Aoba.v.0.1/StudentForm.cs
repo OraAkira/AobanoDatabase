@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
+using System.Data;
 
 namespace Aoba.v._0._1
 {
@@ -20,14 +16,16 @@ namespace Aoba.v._0._1
         {
             InitializeComponent();
             SetDefaultText();
+            ReadOnly();
         }
 
         public StudentForm(string _id)
         {
             InitializeComponent();
+            ReadOnly();
             id = _id;
             modify = true;
-            string sql = "SELECT * FROM student WHERE _Id=" + _id;
+            string sql = "SELECT student.*, teacher._Name AS tName  from student, teacher WHERE teacher._Id = student._Teacher AND student._Id=" + _id;
             SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
             try
             {
@@ -36,14 +34,14 @@ namespace Aoba.v._0._1
                 if (datareader.Read())
                 {
                     textBox1.Text = datareader["_Name"].ToString();
-                    textBox2.Text = datareader["_Sex"].ToString();
+                    comboBox1.SelectedIndex = GetComboIndex(comboBox1, datareader["_Sex"].ToString());
                     textBox3.Text = datareader["_Birth"].ToString();
                     textBox4.Text = datareader["_Id"].ToString();
                     textBox5.Text = datareader["_Nation"].ToString();
-                    textBox6.Text = datareader["_Payment"].ToString();
+                    comboBox3.SelectedIndex = GetComboIndex(comboBox3, datareader["_Payment"].ToString());
                     textBox7.Text = datareader["_Link"].ToString();
-                    textBox8.Text = datareader["_Teacher"].ToString();
-                    textBox9.Text = datareader["_Grade"].ToString();
+                    textBox8.Text = datareader["tName"].ToString();
+                    comboBox2.SelectedIndex =GetComboIndex(comboBox2, datareader["_Grade"].ToString());
                     textBox10.Text = datareader["_Address"].ToString();
                     textBox11.Text = datareader["_Organization"].ToString();
                     textBox12.Text = datareader["_Campus"].ToString();
@@ -51,16 +49,15 @@ namespace Aoba.v._0._1
                     textBox14.Text = datareader["_Late"].ToString();
                     textBox15.Text = datareader["_Homework"].ToString();
                     textBox16.Text = datareader["_Discipline"].ToString();
-                    textBox17.Text = datareader["_ClassPerform"].ToString();
-                    textBox18.Text = datareader["_StudyPerform"].ToString();
-                    textBox19.Text = datareader["_Attitude"].ToString();
+                    comboBox4.SelectedIndex = GetComboIndex(comboBox4, datareader["_ClassPerform"].ToString());
+                    comboBox5.SelectedIndex = GetComboIndex(comboBox5, datareader["_StudyPerform"].ToString());
+                    comboBox6.SelectedIndex = GetComboIndex(comboBox6, datareader["_Attitude"].ToString());
                     textBox20.Text = datareader["_Overall"].ToString();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                Console.WriteLine("错误代码：{0}", e);
-                MessageBox.Show("未能执行此命令");
+                MessageBox.Show("错误代码：{0}" + e.ToString());
                 this.Close();
             }
             finally
@@ -68,20 +65,20 @@ namespace Aoba.v._0._1
                 Basic.mylink.Close();
             }
             cmd.Dispose();
-            sql = "SELECT * FROM elective WHERE _StdId=" + _id;
+            sql = "SELECT * FROM elective WHERE _IdStu=" + _id;
             cmd = new SqlCommand(sql, Basic.mylink);
             try
             {
                 Basic.mylink.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                dataGridView1.DataSource = dt;
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                sda.Fill(ds, "course");
+                dataGridView1.DataSource = ds;
+                dataGridView1.DataMember = "course";
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                Console.WriteLine("错误代码：{0}", e);
-                MessageBox.Show("未能执行此命令");
+                MessageBox.Show("错误代码：{0}" + e.ToString());
                 this.Close();
             }
             finally
@@ -95,16 +92,15 @@ namespace Aoba.v._0._1
             string sql;
             if (modify)
             {
-                sql = "UPDATE teacher SET "
+                sql = "UPDATE student SET "
                     + " _Name='" + textBox1.Text + "'"
-                    + ", _Sex='" + textBox2.Text + "'"
+                    + ", _Sex='" + comboBox1.SelectedItem.ToString() + "'"
                     + ", _Birth='" + textBox3.Text + "'"
-                    + ", _Id=" + textBox4.Text
                     + ", _Nation='" + textBox5.Text + "'"
-                    + ", _Payment='" + textBox6.Text + "'"
+                    + ", _Payment='" + comboBox3.SelectedItem.ToString() + "'"
                     + ", _Link='" + textBox7.Text + "'"
-                    + ", _Teacher=" + textBox8.Text + ""
-                    + ", _Grade='" + textBox9.Text + "'"
+                    + ", _Teacher=" + Link2Teacher(textBox8.Text) + ""
+                    + ", _Grade='" + comboBox2.SelectedItem.ToString() + "'"
                     + ", _Address='" + textBox10.Text + "'"
                     + ", _Organization='" + textBox11.Text + "'"
                     + ", _Campus='" + textBox12.Text + "'"
@@ -112,11 +108,11 @@ namespace Aoba.v._0._1
                     + ", _Late=" + textBox14.Text
                     + ", _Homework=" + textBox15.Text
                     + ", _Discipline=" + textBox16.Text
-                    + ", _ClassPerform='" + textBox17.Text + "'"
-                    + ", _StudyPerform='" + textBox18.Text + "'"
-                    + ", _Attitude='" + textBox19.Text + "'"
+                    + ", _ClassPerform='" + comboBox4.SelectedItem.ToString() + "'"
+                    + ", _StudyPerform='" + comboBox5.SelectedItem.ToString() + "'"
+                    + ", _Attitude='" + comboBox6.SelectedItem.ToString() + "'"
                     + ", _Overall='" + textBox20.Text + "'\n"
-                    + " WEHER _Id = " + id;
+                    + " WHERE _Id=" + id;
             }
             else
             {
@@ -124,32 +120,42 @@ namespace Aoba.v._0._1
                     "_Payment, _Link, _Teacher, _Grade, _Address, _Organization, " +
                     "_Campus,  _Absenteeism, _Late, _Homework, _Discipline, " +
                     "_ClassPerform, _StudyPerform, _Attitude, _Overall) VALUES ('" +
-                    textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" +
-                    textBox5.Text + "', '" + textBox6.Text + "', '" +
-                    textBox7.Text + "', " + textBox8.Text + ", '" + textBox9.Text + "', '" +
+                    textBox1.Text + "', '" + comboBox1.SelectedItem.ToString() + "', '" + textBox3.Text + "', '" +
+                    textBox5.Text + "', '" + comboBox3.SelectedItem.ToString() + "', '" +
+                    textBox7.Text + "', " + Link2Teacher(textBox8.Text) + ", '" + comboBox2.SelectedItem.ToString() + "', '" +
                     textBox10.Text + "', '" + textBox11.Text + "', '" + textBox12.Text + "', " +
                     textBox13.Text + ", " + textBox14.Text + ", " + textBox15.Text + ", " + textBox16.Text + ", '" +
-                    textBox17.Text + "', '" + textBox18.Text + "', '" +
-                    textBox19.Text + "', '" + textBox20.Text + "')";
+                    comboBox4.SelectedItem.ToString() + "', '" + comboBox5.SelectedItem.ToString() + "', '" +
+                    comboBox6.SelectedItem.ToString() + "', '" + textBox20.Text + "')";
             }
-            Basic.mylink.Open();
             MessageBox.Show(sql);
             SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
-            if (1 == cmd.ExecuteNonQuery())
+            Basic.mylink.Open();
+            try
             {
-                MessageBox.Show("添加成功！");
+                if (1 == cmd.ExecuteNonQuery())
+                {
+                    MessageBox.Show("添加成功！");
+                }
+                else
+                {
+                    MessageBox.Show("添加失败...");
+                }
             }
-            else
+            catch(SqlException ex)
             {
-                MessageBox.Show("添加失败...");
+                MessageBox.Show("错误代码：" + ex.ToString());
             }
-            Basic.mylink.Close();
-            this.Close();
+            finally
+            {
+                Basic.mylink.Close();
+                this.Close();
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -160,21 +166,17 @@ namespace Aoba.v._0._1
 
         private void SetDefaultText()
         {
-            textBox2.Text = "男";
-            textBox2.ForeColor = Color.Gray;
+            comboBox1.SelectedIndex = 0;
             textBox3.Text = "2000-01-01";
             textBox3.ForeColor = Color.Gray;
-            textBox4.ReadOnly = false;
             textBox5.Text = "汉";
             textBox5.ForeColor = Color.Gray;
-            textBox6.Text = "未缴费";
-            textBox6.ForeColor = Color.Gray;
+            comboBox3.SelectedIndex = 0;
             textBox7.Text = "+86***********";
             textBox7.ForeColor = Color.Gray;
-            textBox8.Text = "1701000";
+            textBox8.Text = "格日日哈";
             textBox8.ForeColor = Color.Gray;
-            textBox9.Text = "高一";
-            textBox9.ForeColor = Color.Gray;
+            comboBox2.SelectedIndex = 9;
             textBox10.Text = "四川成都";
             textBox10.ForeColor = Color.Gray;
             textBox11.Text = "比丽弗教育机构";
@@ -188,16 +190,98 @@ namespace Aoba.v._0._1
             textBox15.Text = "0";
             textBox16.ForeColor = Color.Gray;
             textBox16.Text = "0";
-            textBox17.ForeColor = Color.Gray;
-            textBox17.Text = "优";
-            textBox18.ForeColor = Color.Gray;
-            textBox18.Text = "优";
-            textBox19.ForeColor = Color.Gray;
-            textBox19.Text = "优";
-            textBox20.ForeColor = Color.Gray;
+            comboBox4.SelectedIndex = 0;
+            comboBox5.SelectedIndex = 0;
+            comboBox6.SelectedIndex = 0;
             textBox20.Text = "无说明";
             textBox1.ForeColor = Color.Gray;
         }
 
+        private int GetComboIndex(ComboBox mylist, string text)
+        {
+            text = Regex.Replace(text, @"\s", "");
+            foreach(object tmp in mylist.Items)
+            {
+                if (text == tmp.ToString())
+                {
+                    return mylist.Items.IndexOf(tmp);
+                }
+                    
+            }
+            return -1;
+        }
+
+        private string Link2Teacher(string text)
+        {
+            Basic.mylink.Open();
+            string sql = "SELECT _Id FROM teacher WHERE _Name='" + text + "'";
+            string result = null;
+            SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    result = reader["_Id"].ToString();
+                }
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("错误代码：" + ex.ToString());
+            }
+            finally
+            {
+                Basic.mylink.Close();
+            }
+            return result;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            electiveForm elective = new electiveForm(id);
+            elective.ShowDialog();
+        }
+
+        private void ReadOnly()
+        {
+            textBox4.ReadOnly = true;
+            textBox4.BackColor = Color.Gray;
+            textBox13.ReadOnly = true;
+            textBox13.BackColor = Color.Gray;
+            textBox14.ReadOnly = true;
+            textBox14.BackColor = Color.Gray;
+            textBox15.ReadOnly = true;
+            textBox15.BackColor = Color.Gray;
+            textBox16.ReadOnly = true;
+            textBox16.BackColor = Color.Gray;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int cnt = Convert.ToInt32(textBox13.Text);
+            cnt++;
+            textBox13.Text = cnt.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int cnt = Convert.ToInt32(textBox14.Text);
+            cnt++;
+            textBox14.Text = cnt.ToString();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int cnt = Convert.ToInt32(textBox15.Text);
+            cnt++;
+            textBox15.Text = cnt.ToString();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int cnt = Convert.ToInt32(textBox16.Text);
+            cnt++;
+            textBox16.Text = cnt.ToString();
+        }
     }
 }
