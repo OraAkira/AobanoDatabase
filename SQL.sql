@@ -61,6 +61,7 @@ CREATE TABLE elective
 CREATE TABLE users
 (
 	_Id int PRIMARY KEY,
+	_Password varchar(10) NOT NULL,
 	_Type varchar(20) DEFAULT 'Public' CHECK (_Type in('Administrator', 'Teacher', 'student', 'public')),
 	_Permission varchar(30) DEFAULT 'select'
 )

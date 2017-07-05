@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Aoba.v._0._1
 {
@@ -20,6 +21,18 @@ namespace Aoba.v._0._1
         {
             InitializeComponent();
         }
+        public AdminForm(bool trueadmin)
+        {
+            InitializeComponent();
+            if(!trueadmin)
+            {
+                contextMenuStrip1.Items[0].Enabled = false;
+                contextMenuStrip1.Items[1].Enabled = true;
+                contextMenuStrip1.Items[2].Enabled = false;
+                contextMenuStrip1.Items[3].Enabled = false;
+                dataGridView1.Enabled = false;
+            }
+        }
 
         private void 切换用户ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -30,6 +43,21 @@ namespace Aoba.v._0._1
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Users_Click(object sender, EventArgs e)
+        {
+            string SQL = "SELECT * FROM users";
+            SqlCommand cmd = new SqlCommand(SQL, Basic.mylink);
+            Basic.mylink.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds, "users");
+            dataGridView1.DataSource = ds;
+            dataGridView1.DataMember = "users";
+            usertype = Basic.UserType.user;
+            tablename = "users";
+            Basic.mylink.Close();
         }
 
         private void Teachers_Click(object sender, EventArgs e)
@@ -160,7 +188,6 @@ namespace Aoba.v._0._1
                 string sql = "DELETE FROM " + tablename + " WHERE _id=" + id;
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
                 Basic.mylink.Open();
-                MessageBox.Show(sql);
                 int count = cmd.ExecuteNonQuery();
                 if (count == 1)
                 {
@@ -181,5 +208,14 @@ namespace Aoba.v._0._1
             }
         }
 
+        private void Help_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", ".\\Help.txt");
+        }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Version: 1.1.20170704_beta\nAuthor: Ameya\nDataBase: SQL Server2016\nDataSourse: 123.206.218.134");
+        }
     }
 }

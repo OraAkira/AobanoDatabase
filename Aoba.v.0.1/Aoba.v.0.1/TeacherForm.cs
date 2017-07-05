@@ -53,7 +53,6 @@ namespace Aoba.v._0._1
             {
                 cmd.Dispose();
                 sql = "SELECT * FROM course WHERE _Teacher=" + _id;
-                MessageBox.Show(sql);
                 cmd = new SqlCommand(sql, Basic.mylink);
                 try
                 {
@@ -82,7 +81,6 @@ namespace Aoba.v._0._1
             {
                 string sql = "UPDATE teacher SET _Name='" + textBox1.Text + "', _Link='" + textBox5.Text + "', _Remark='" + textBox4.Text + "'" +
                     ", _Old=" + textBox2.Text + ", _Sex='" + comboBox1.SelectedItem.ToString() + "'\nWHERE _id=" + id;
-                MessageBox.Show(sql);
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
                 try
                 {
@@ -108,18 +106,52 @@ namespace Aoba.v._0._1
             }
             else
             {
-                string sql = "INSERT INTO teacher (_Name, _Link, _Remark) VALUES ('" + textBox2.Text + "', '" + textBox3.Text + "','" + textBox4.Text + "')";
+                if (textBox2.Text == String.Empty)
+                    textBox2.Text = "20";
+                string sql = "INSERT INTO teacher (_Name, _Sex, _Old, _Link, _Remark) VALUES ('" + textBox1.Text + "', '" + comboBox1.Text + "', " + textBox2.Text + ",'" + textBox5.Text + "','" + textBox4.Text + "')";
                 SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
                 Basic.mylink.Open();
-                if (1 == cmd.ExecuteNonQuery())
+                try
                 {
-                    MessageBox.Show("添加成功！");
+                    if (1 == cmd.ExecuteNonQuery())
+                    {
+                        MessageBox.Show("添加成功！");
+                    }
+                    else
+                    {
+                        MessageBox.Show("添加失败...");
+                    }
                 }
-                else
+                catch(SqlException ex)
                 {
-                    MessageBox.Show("添加失败...");
+                    MessageBox.Show("错误代码：" + ex.ToString());
                 }
-                Basic.mylink.Close();
+                finally
+                {
+                    Basic.mylink.Close();
+                }
+                string sqlstr = "SELECT _Id FROM teacher WHERE _Name='" + textBox1.Text + "' AND _Link='" + textBox5.Text + "'";
+                string Id = null;
+                string pwd = Basic.InputBox();
+                SqlCommand tmpcmd = new SqlCommand(sqlstr, Basic.mylink);
+                Basic.mylink.Open();
+                try
+                {
+                    SqlDataReader reader = tmpcmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        Id = reader["_Id"].ToString();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("错误代码：" + ex.ToString());
+                }
+                finally
+                {
+                    Basic.mylink.Close();
+                }
+                Basic.adduser(Id, pwd, "Teacher", "select update");
                 this.Close();
             }
             
@@ -141,7 +173,7 @@ namespace Aoba.v._0._1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -149,6 +181,13 @@ namespace Aoba.v._0._1
             string idCou = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
             ClassForm classroom = new ClassForm(idCou);
             classroom.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Close();
         }
     }
 }

@@ -98,6 +98,7 @@ namespace Aoba.v._0._1
             this.Users.Name = "Users";
             this.Users.Size = new System.Drawing.Size(68, 21);
             this.Users.Text = "用户管理";
+            this.Users.Click += new System.EventHandler(this.Users_Click);
             // 
             // Teachers
             // 
@@ -132,12 +133,14 @@ namespace Aoba.v._0._1
             this.Help.Name = "Help";
             this.Help.Size = new System.Drawing.Size(44, 21);
             this.Help.Text = "帮助";
+            this.Help.Click += new System.EventHandler(this.Help_Click);
             // 
             // About
             // 
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(44, 21);
             this.About.Text = "关于";
+            this.About.Click += new System.EventHandler(this.About_Click);
             // 
             // dataGridView1
             // 

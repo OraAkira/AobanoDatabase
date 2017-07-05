@@ -59,12 +59,6 @@
     <Compile Include="ClassForm.Designer.cs">
       <DependentUpon>ClassForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommonForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CommonForm.Designer.cs">
-      <DependentUpon>CommonForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CourseForm.cs">
       <SubType>Form</SubType>
     </Compile>

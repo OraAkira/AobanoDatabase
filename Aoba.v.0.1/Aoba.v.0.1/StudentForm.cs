@@ -11,12 +11,88 @@ namespace Aoba.v._0._1
     {
         private string id;
         private bool modify = false;
+        private bool student = false;
 
         public StudentForm()
         {
             InitializeComponent();
             SetDefaultText();
             ReadOnly();
+            dataGridView1.Enabled = false;
+        }
+
+        public StudentForm(string _id, bool isstu)
+        {
+            InitializeComponent();
+            ReadOnly();
+            if(isstu)
+            {
+                ALLReadOnly();
+                student = true;
+                dataGridView1.Enabled = false;
+            }
+            id = _id;
+            modify = true;
+            string sql = "SELECT student.*, teacher._Name AS tName  from student, teacher WHERE teacher._Id = student._Teacher AND student._Id=" + _id;
+            SqlCommand cmd = new SqlCommand(sql, Basic.mylink);
+            try
+            {
+                Basic.mylink.Open();
+                SqlDataReader datareader = cmd.ExecuteReader();
+                if (datareader.Read())
+                {
+                    textBox1.Text = datareader["_Name"].ToString();
+                    comboBox1.SelectedIndex = GetComboIndex(comboBox1, datareader["_Sex"].ToString());
+                    textBox3.Text = datareader["_Birth"].ToString();
+                    textBox4.Text = datareader["_Id"].ToString();
+                    textBox5.Text = datareader["_Nation"].ToString();
+                    comboBox3.SelectedIndex = GetComboIndex(comboBox3, datareader["_Payment"].ToString());
+                    textBox7.Text = datareader["_Link"].ToString();
+                    textBox8.Text = datareader["tName"].ToString();
+                    comboBox2.SelectedIndex = GetComboIndex(comboBox2, datareader["_Grade"].ToString());
+                    textBox10.Text = datareader["_Address"].ToString();
+                    textBox11.Text = datareader["_Organization"].ToString();
+                    textBox12.Text = datareader["_Campus"].ToString();
+                    textBox13.Text = datareader["_Absenteeism"].ToString();
+                    textBox14.Text = datareader["_Late"].ToString();
+                    textBox15.Text = datareader["_Homework"].ToString();
+                    textBox16.Text = datareader["_Discipline"].ToString();
+                    comboBox4.SelectedIndex = GetComboIndex(comboBox4, datareader["_ClassPerform"].ToString());
+                    comboBox5.SelectedIndex = GetComboIndex(comboBox5, datareader["_StudyPerform"].ToString());
+                    comboBox6.SelectedIndex = GetComboIndex(comboBox6, datareader["_Attitude"].ToString());
+                    textBox20.Text = datareader["_Overall"].ToString();
+                }
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("错误代码：{0}" + e.ToString());
+                this.Close();
+            }
+            finally
+            {
+                Basic.mylink.Close();
+            }
+            cmd.Dispose();
+            sql = "SELECT * FROM elective WHERE _IdStu=" + _id;
+            cmd = new SqlCommand(sql, Basic.mylink);
+            try
+            {
+                Basic.mylink.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                sda.Fill(ds, "course");
+                dataGridView1.DataSource = ds;
+                dataGridView1.DataMember = "course";
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("错误代码：{0}" + e.ToString());
+                this.Close();
+            }
+            finally
+            {
+                Basic.mylink.Close();
+            }
         }
 
         public StudentForm(string _id)
@@ -137,10 +213,6 @@ namespace Aoba.v._0._1
                 {
                     MessageBox.Show("添加成功！");
                 }
-                else
-                {
-                    MessageBox.Show("添加失败...");
-                }
             }
             catch(SqlException ex)
             {
@@ -149,12 +221,39 @@ namespace Aoba.v._0._1
             finally
             {
                 Basic.mylink.Close();
-                this.Close();
             }
+            if(!modify)
+            {
+                string sqlstr = "SELECT _Id FROM student WHERE _Name='" + textBox1.Text + "' AND _Link='" + textBox7.Text + "'";
+                string Id = null;
+                string pwd = Basic.InputBox();
+                SqlCommand tmpcmd = new SqlCommand(sqlstr, Basic.mylink);
+                Basic.mylink.Open();
+                try
+                {
+                    SqlDataReader reader = tmpcmd.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        Id = reader["_Id"].ToString();
+                    }
+                }
+                catch(SqlException ex)
+                {
+                    MessageBox.Show("错误代码：" + ex.ToString());
+                }
+                finally
+                {
+                    Basic.mylink.Close();
+                }
+                Basic.adduser(Id, pwd, "student", "select");
+            }
+            this.Close();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
+            if (student)
+                Application.Exit();
             this.Close();
         }
 
@@ -282,6 +381,43 @@ namespace Aoba.v._0._1
             int cnt = Convert.ToInt32(textBox16.Text);
             cnt++;
             textBox16.Text = cnt.ToString();
+        }
+
+        private void ALLReadOnly()
+        {
+            //textBox
+            textBox1.ReadOnly = true;
+            textBox1.BackColor = Color.Gray;
+            textBox3.ReadOnly = true;
+            textBox3.BackColor = Color.Gray;
+            textBox5.ReadOnly = true;
+            textBox5.BackColor = Color.Gray;
+            textBox7.ReadOnly = true;
+            textBox7.BackColor = Color.Gray;
+            textBox8.ReadOnly = true;
+            textBox8.BackColor = Color.Gray;
+            textBox10.ReadOnly = true;
+            textBox10.BackColor = Color.Gray;
+            textBox11.ReadOnly = true;
+            textBox11.BackColor = Color.Gray;
+            textBox12.ReadOnly = true;
+            textBox12.BackColor = Color.Gray;
+            textBox20.ReadOnly = true;
+            textBox20.BackColor = Color.Gray;
+            //button
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            button5.Enabled = false;
+            button8.Enabled = false;
+            //combobox
+            comboBox1.Enabled = false;
+            comboBox2.Enabled = false;
+            comboBox3.Enabled = false;
+            comboBox4.Enabled = false;
+            comboBox5.Enabled = false;
+            comboBox6.Enabled = false;
         }
     }
 }
